@@ -1,0 +1,49 @@
+# CMake configuration for the Router library
+
+# --- Find ONNX Runtime ---
+# This assumes ONNX Runtime is installed in a standard location.
+# For CI, we'll need to handle its installation.
+find_package(onnxruntime REQUIRED)
+
+# --- Router Library ---
+add_library(router STATIC
+    src/pmr.cpp
+)
+target_include_directories(router PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+target_link_libraries(router PRIVATE bvh onnxruntime::onnxruntime)
+set_target_properties(router PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+)
+target_compile_features(router PUBLIC cxx_std_17)
+
+# --- GoogleTest ---
+find_package(GTest REQUIRED)
+add_executable(router_tests
+    tests/test_pmr.cpp
+)
+target_link_libraries(router_tests PRIVATE router GTest::gtest_main)
+add_test(NAME router_tests COMMAND router_tests)
+
+# --- Python Bindings (Pybind11) ---
+find_package(pybind11 CONFIG REQUIRED)
+
+pybind11_add_module(router_py
+    python/router_py.cpp
+)
+target_link_libraries(router_py PRIVATE router)
+
+# --- Copy ONNX model to build directory ---
+add_custom_command(
+    TARGET router_tests POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_CURRENT_SOURCE_DIR}/model/router.onnx
+            $<TARGET_FILE_DIR:router_tests>/router.onnx
+)
+add_custom_command(
+    TARGET router_py POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_CURRENT_SOURCE_DIR}/model/router.onnx
+            $<TARGET_FILE_DIR:router_py>/router.onnx
+)

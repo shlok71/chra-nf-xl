@@ -1,0 +1,65 @@
+name: CHRA-NF-XL CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.os }} Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            bootstrap_script: './bootstrap.sh'
+            smoke_test_script: './ci_smoke.sh'
+            shell: bash
+          - os: macos-latest
+            bootstrap_script: './bootstrap.sh'
+            smoke_test_script: './ci_smoke.sh'
+            shell: bash
+          - os: windows-latest
+            bootstrap_script: 'bootstrap.ps1'
+            smoke_test_script: 'ci_smoke.ps1'
+            shell: pwsh
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Bootstrap Script
+        shell: ${{ matrix.shell }}
+        working-directory: ./tools
+        run: |
+          ${{ matrix.bootstrap_script }}
+
+      - name: Build C++ Libraries (CMake)
+        run: cmake --build build --config Release
+
+      - name: Run Smoke Test
+        shell: ${{ matrix.shell }}
+        working-directory: ./tools
+        run: |
+          ${{ matrix.smoke_test_script }}
+
+      - name: Archive Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts-${{ matrix.os }}
+          path: |
+            build/
+            # Add other artifacts to archive here
+            !build/.ninja_log
+            !build/.ninja_deps
