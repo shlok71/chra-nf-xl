@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/test_dnr.dir/tests/test_dnr.o -o test_dnr  libdnr.a

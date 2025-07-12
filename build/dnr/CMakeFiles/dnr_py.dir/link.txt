@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -flto -shared  -o dnr_py.cpython-312-x86_64-linux-gnu.so CMakeFiles/dnr_py.dir/python/dnr_py.o  libdnr.a

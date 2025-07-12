@@ -37,6 +37,7 @@ target_link_libraries(bvh_tests PRIVATE bvh GTest::gtest_main)
 add_test(NAME bvh_tests COMMAND bvh_tests)
 
 # --- Python Bindings (Pybind11) ---
+set(pybind11_DIR /home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/pybind11/share/cmake/pybind11)
 find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(bhv_py

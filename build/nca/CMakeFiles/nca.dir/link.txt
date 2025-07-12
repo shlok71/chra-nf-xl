@@ -1,0 +1,2 @@
+/usr/bin/ar qc libnca.a CMakeFiles/nca.dir/src/nca.cpp.o
+/usr/bin/ranlib libnca.a

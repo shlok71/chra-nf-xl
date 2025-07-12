@@ -28,8 +28,8 @@ add_subdirectory(bvh)
 add_subdirectory(shm)
 add_subdirectory(router)
 # add_subdirectory(edgt)
-# add_subdirectory(nca)
-# add_subdirectory(dnr)
+add_subdirectory(nca)
+add_subdirectory(dnr)
 # add_subdirectory(inference)
 
 # --- Enable Testing ---

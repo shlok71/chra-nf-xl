@@ -1,0 +1,5 @@
+/app/build/nca/CMakeFiles/nca.dir
+/app/build/nca/CMakeFiles/test_nca.dir
+/app/build/nca/CMakeFiles/nca_py.dir
+/app/build/nca/CMakeFiles/edit_cache.dir
+/app/build/nca/CMakeFiles/rebuild_cache.dir

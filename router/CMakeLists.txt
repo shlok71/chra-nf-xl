@@ -3,7 +3,7 @@
 # --- Find ONNX Runtime ---
 # This assumes ONNX Runtime is installed in a standard location.
 # For CI, we'll need to handle its installation.
-find_package(onnxruntime REQUIRED)
+# find_package(onnxruntime REQUIRED)
 
 # --- Router Library ---
 add_library(router STATIC
@@ -12,7 +12,7 @@ add_library(router STATIC
 target_include_directories(router PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_link_libraries(router PRIVATE bvh onnxruntime::onnxruntime)
+target_link_libraries(router PRIVATE bvh /home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/onnxruntime/capi/libonnxruntime.so.1.22.1)
 set_target_properties(router PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )
@@ -27,6 +27,7 @@ target_link_libraries(router_tests PRIVATE router GTest::gtest_main)
 add_test(NAME router_tests COMMAND router_tests)
 
 # --- Python Bindings (Pybind11) ---
+set(pybind11_DIR /home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/pybind11/share/cmake/pybind11)
 find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(router_py

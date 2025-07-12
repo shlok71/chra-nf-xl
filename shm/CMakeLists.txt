@@ -22,6 +22,7 @@ target_link_libraries(shm_tests PRIVATE shm GTest::gtest_main)
 add_test(NAME shm_tests COMMAND shm_tests)
 
 # --- Python Bindings (Pybind11) ---
+set(pybind11_DIR /home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/pybind11/share/cmake/pybind11)
 find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(shm_py

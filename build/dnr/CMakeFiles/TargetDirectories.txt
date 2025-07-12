@@ -1,0 +1,5 @@
+/app/build/dnr/CMakeFiles/dnr.dir
+/app/build/dnr/CMakeFiles/test_dnr.dir
+/app/build/dnr/CMakeFiles/dnr_py.dir
+/app/build/dnr/CMakeFiles/edit_cache.dir
+/app/build/dnr/CMakeFiles/rebuild_cache.dir

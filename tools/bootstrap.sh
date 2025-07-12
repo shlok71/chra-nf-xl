@@ -17,7 +17,7 @@ echo "Detected OS: ${MACHINE}"
 echo "Installing system dependencies..."
 if [ "${MACHINE}" == "Linux" ]; then
     sudo apt-get update
-    sudo apt-get install -y build-essential cmake git python3.10-dev pkg-config
+    sudo apt-get install -y build-essential cmake git python3-dev pkg-config libgtest-dev
 elif [ "${MACHINE}" == "macOS" ]; then
     if ! command -v brew &> /dev/null; then
         echo "Homebrew not found. Please install it first."
@@ -31,8 +31,8 @@ fi
 
 # --- 2. Install Python Dependencies ---
 echo "Installing Python dependencies..."
-python3.10 -m pip install --upgrade pip
-python3.10 -m pip install torch --index-url https://download.pytorch.org/whl/cpu onnx onnxruntime numpy pybind11
+python3 -m pip install --upgrade pip
+python3 -m pip install --resume-retries 5 torch onnx onnxruntime numpy pybind11
 
 # --- 3. Configure CMake & Build ---
 BUILD_DIR="$(dirname "$0")/../build"
