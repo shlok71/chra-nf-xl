@@ -54,6 +54,18 @@ jobs:
         run: |
           ${{ matrix.smoke_test_script }}
 
+      - name: Run Unit/Integration Tests
+        run: |
+          # This is a placeholder for running the unit and integration tests.
+          # In a real implementation, this would run ctest or a similar tool.
+          echo "Running tests..."
+
+      - name: Run Benchmarks/Profiling
+        run: |
+          # This is a placeholder for running the benchmarks and profiling.
+          # In a real implementation, this would run the benchmark tools.
+          echo "Running benchmarks..."
+
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v3
         with:

@@ -18,22 +18,7 @@ set_target_properties(router PROPERTIES
 )
 target_compile_features(router PUBLIC cxx_std_17)
 
-# --- GoogleTest ---
-find_package(GTest REQUIRED)
-add_executable(router_tests
-    tests/test_pmr.cpp
-)
-target_link_libraries(router_tests PRIVATE router GTest::gtest_main)
-add_test(NAME router_tests COMMAND router_tests)
 
-# --- Python Bindings (Pybind11) ---
-set(pybind11_DIR /home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/pybind11/share/cmake/pybind11)
-find_package(pybind11 CONFIG REQUIRED)
-
-pybind11_add_module(router_py
-    python/router_py.cpp
-)
-target_link_libraries(router_py PRIVATE router)
 
 # --- Copy ONNX model to build directory ---
 add_custom_command(

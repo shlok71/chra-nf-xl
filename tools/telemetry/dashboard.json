@@ -1,0 +1,24 @@
+{
+  "widgets": [
+    {
+      "title": "Expert Usage",
+      "type": "line-chart",
+      "collection": "metrics",
+      "document": "expert_usage",
+      "fields": [
+        "expert_0",
+        "expert_1"
+      ]
+    },
+    {
+      "title": "Cache Hits",
+      "type": "line-chart",
+      "collection": "metrics",
+      "document": "cache_hits",
+      "fields": [
+        "hits",
+        "misses"
+      ]
+    }
+  ]
+}
