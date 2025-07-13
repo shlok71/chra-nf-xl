@@ -6,4 +6,4 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/app/dnr/include
 
-CXX_FLAGS =
+CXX_FLAGS =  -std=c++17 -O3 -mavx2 -std=gnu++17

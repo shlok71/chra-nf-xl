@@ -57,13 +57,23 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /app/dnr
+CMAKE_SOURCE_DIR = /app
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /app/build/dnr
+CMAKE_BINARY_DIR = /app/build
 
 #=============================================================================
 # Targets provided globally by CMake.
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -87,14 +97,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/dnr/CMakeFiles /app/build/dnr//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/dnr/CMakeFiles 0
+	cd /app/build && $(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles /app/build/dnr//CMakeFiles/progress.marks
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dnr/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dnr/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,102 +113,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dnr/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dnr/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /app/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named dnr
+# Convenience name for target.
+dnr/CMakeFiles/dnr.dir/rule:
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dnr/CMakeFiles/dnr.dir/rule
+.PHONY : dnr/CMakeFiles/dnr.dir/rule
 
-# Build rule for target.
-dnr: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dnr
+# Convenience name for target.
+dnr: dnr/CMakeFiles/dnr.dir/rule
 .PHONY : dnr
 
 # fast build rule for target.
 dnr/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr.dir/build.make CMakeFiles/dnr.dir/build
+	cd /app/build && $(MAKE) $(MAKESILENT) -f dnr/CMakeFiles/dnr.dir/build.make dnr/CMakeFiles/dnr.dir/build
 .PHONY : dnr/fast
 
-#=============================================================================
-# Target rules for targets named test_dnr
-
-# Build rule for target.
-test_dnr: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_dnr
-.PHONY : test_dnr
-
-# fast build rule for target.
-test_dnr/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dnr.dir/build.make CMakeFiles/test_dnr.dir/build
-.PHONY : test_dnr/fast
-
-#=============================================================================
-# Target rules for targets named dnr_py
-
-# Build rule for target.
-dnr_py: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dnr_py
-.PHONY : dnr_py
-
-# fast build rule for target.
-dnr_py/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr_py.dir/build.make CMakeFiles/dnr_py.dir/build
-.PHONY : dnr_py/fast
-
-# target to build an object file
-python/dnr_py.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr_py.dir/build.make CMakeFiles/dnr_py.dir/python/dnr_py.o
-.PHONY : python/dnr_py.o
-
-# target to preprocess a source file
-python/dnr_py.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr_py.dir/build.make CMakeFiles/dnr_py.dir/python/dnr_py.i
-.PHONY : python/dnr_py.i
-
-# target to generate assembly for a file
-python/dnr_py.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr_py.dir/build.make CMakeFiles/dnr_py.dir/python/dnr_py.s
-.PHONY : python/dnr_py.s
-
-# target to build an object file
-src/dnr.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr.dir/build.make CMakeFiles/dnr.dir/src/dnr.o
+src/dnr.o: src/dnr.cpp.o
 .PHONY : src/dnr.o
 
-# target to preprocess a source file
-src/dnr.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr.dir/build.make CMakeFiles/dnr.dir/src/dnr.i
+# target to build an object file
+src/dnr.cpp.o:
+	cd /app/build && $(MAKE) $(MAKESILENT) -f dnr/CMakeFiles/dnr.dir/build.make dnr/CMakeFiles/dnr.dir/src/dnr.cpp.o
+.PHONY : src/dnr.cpp.o
+
+src/dnr.i: src/dnr.cpp.i
 .PHONY : src/dnr.i
 
-# target to generate assembly for a file
-src/dnr.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dnr.dir/build.make CMakeFiles/dnr.dir/src/dnr.s
+# target to preprocess a source file
+src/dnr.cpp.i:
+	cd /app/build && $(MAKE) $(MAKESILENT) -f dnr/CMakeFiles/dnr.dir/build.make dnr/CMakeFiles/dnr.dir/src/dnr.cpp.i
+.PHONY : src/dnr.cpp.i
+
+src/dnr.s: src/dnr.cpp.s
 .PHONY : src/dnr.s
 
-# target to build an object file
-tests/test_dnr.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dnr.dir/build.make CMakeFiles/test_dnr.dir/tests/test_dnr.o
-.PHONY : tests/test_dnr.o
-
-# target to preprocess a source file
-tests/test_dnr.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dnr.dir/build.make CMakeFiles/test_dnr.dir/tests/test_dnr.i
-.PHONY : tests/test_dnr.i
-
 # target to generate assembly for a file
-tests/test_dnr.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dnr.dir/build.make CMakeFiles/test_dnr.dir/tests/test_dnr.s
-.PHONY : tests/test_dnr.s
+src/dnr.cpp.s:
+	cd /app/build && $(MAKE) $(MAKESILENT) -f dnr/CMakeFiles/dnr.dir/build.make dnr/CMakeFiles/dnr.dir/src/dnr.cpp.s
+.PHONY : src/dnr.cpp.s
 
 # Help Target
 help:
@@ -208,18 +172,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... dnr"
-	@echo "... dnr_py"
-	@echo "... test_dnr"
-	@echo "... python/dnr_py.o"
-	@echo "... python/dnr_py.i"
-	@echo "... python/dnr_py.s"
 	@echo "... src/dnr.o"
 	@echo "... src/dnr.i"
 	@echo "... src/dnr.s"
-	@echo "... tests/test_dnr.o"
-	@echo "... tests/test_dnr.i"
-	@echo "... tests/test_dnr.s"
 .PHONY : help
 
 
@@ -231,5 +188,5 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /app/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system

@@ -4,6 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -Dnca_py_EXPORTS
 
-CXX_INCLUDES = -I/app/nca/include -isystem /home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/pybind11/include -isystem /home/jules/.pyenv/versions/3.12.11/include/python3.12
+CXX_INCLUDES = -I/app/nca/include -I/app/nca/../third_party/MiniDNN-master/include -isystem /home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/pybind11/include -isystem /home/jules/.pyenv/versions/3.12.11/include/python3.12
 
-CXX_FLAGS = -fPIC -fvisibility=hidden -flto -fno-fat-lto-objects
+CXX_FLAGS =  -std=c++17 -O3 -mavx2 -std=gnu++17 -fPIC -fvisibility=hidden -flto -fno-fat-lto-objects
+

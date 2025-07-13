@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/app/nca/python/nca_py.cpp" "CMakeFiles/nca_py.dir/python/nca_py.cpp.o" "gcc" "CMakeFiles/nca_py.dir/python/nca_py.cpp.o.d"
+  "/app/nca/python/nca_py.cpp" "nca/CMakeFiles/nca_py.dir/python/nca_py.cpp.o" "gcc" "nca/CMakeFiles/nca_py.dir/python/nca_py.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

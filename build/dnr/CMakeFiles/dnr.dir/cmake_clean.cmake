@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/dnr.dir/src/dnr.o"
-  "CMakeFiles/dnr.dir/src/dnr.o.d"
+  "CMakeFiles/dnr.dir/src/dnr.cpp.o"
+  "CMakeFiles/dnr.dir/src/dnr.cpp.o.d"
   "libdnr.a"
   "libdnr.pdb"
 )

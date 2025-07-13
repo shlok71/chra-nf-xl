@@ -21,15 +21,15 @@ target_compile_features(router PUBLIC cxx_std_17)
 
 
 # --- Copy ONNX model to build directory ---
-add_custom_command(
-    TARGET router_tests POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_SOURCE_DIR}/model/router.onnx
-            $<TARGET_FILE_DIR:router_tests>/router.onnx
-)
-add_custom_command(
-    TARGET router_py POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_SOURCE_DIR}/model/router.onnx
-            $<TARGET_FILE_DIR:router_py>/router.onnx
-)
+#add_custom_command(
+#    TARGET router_tests POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy
+#            ${CMAKE_CURRENT_SOURCE_DIR}/model/router.onnx
+#            $<TARGET_FILE_DIR:router_tests>/router.onnx
+#)
+#add_custom_command(
+#    TARGET router_py POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy
+#            ${CMAKE_CURRENT_SOURCE_DIR}/model/router.onnx
+#            $<TARGET_FILE_DIR:router_py>/router.onnx
+#)

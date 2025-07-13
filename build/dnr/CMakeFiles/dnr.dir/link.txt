@@ -1,2 +1,2 @@
-/usr/bin/ar qc libdnr.a CMakeFiles/dnr.dir/src/dnr.o
+/usr/bin/ar qc libdnr.a CMakeFiles/dnr.dir/src/dnr.cpp.o
 /usr/bin/ranlib libdnr.a

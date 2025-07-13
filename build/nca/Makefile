@@ -57,13 +57,23 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /app/nca
+CMAKE_SOURCE_DIR = /app
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /app/build/nca
+CMAKE_BINARY_DIR = /app/build
 
 #=============================================================================
 # Targets provided globally by CMake.
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -87,14 +97,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/nca/CMakeFiles /app/build/nca//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/nca/CMakeFiles 0
+	cd /app/build && $(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles /app/build/nca//CMakeFiles/progress.marks
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /app/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,56 +113,45 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /app/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named nca
+# Convenience name for target.
+nca/CMakeFiles/nca.dir/rule:
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca/CMakeFiles/nca.dir/rule
+.PHONY : nca/CMakeFiles/nca.dir/rule
 
-# Build rule for target.
-nca: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca
+# Convenience name for target.
+nca: nca/CMakeFiles/nca.dir/rule
 .PHONY : nca
 
 # fast build rule for target.
 nca/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca.dir/build.make CMakeFiles/nca.dir/build
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca.dir/build.make nca/CMakeFiles/nca.dir/build
 .PHONY : nca/fast
 
-#=============================================================================
-# Target rules for targets named test_nca
+# Convenience name for target.
+nca/CMakeFiles/nca_py.dir/rule:
+	cd /app/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca/CMakeFiles/nca_py.dir/rule
+.PHONY : nca/CMakeFiles/nca_py.dir/rule
 
-# Build rule for target.
-test_nca: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_nca
-.PHONY : test_nca
-
-# fast build rule for target.
-test_nca/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nca.dir/build.make CMakeFiles/test_nca.dir/build
-.PHONY : test_nca/fast
-
-#=============================================================================
-# Target rules for targets named nca_py
-
-# Build rule for target.
-nca_py: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nca_py
+# Convenience name for target.
+nca_py: nca/CMakeFiles/nca_py.dir/rule
 .PHONY : nca_py
 
 # fast build rule for target.
 nca_py/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca_py.dir/build.make CMakeFiles/nca_py.dir/build
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca_py.dir/build.make nca/CMakeFiles/nca_py.dir/build
 .PHONY : nca_py/fast
 
 python/nca_py.o: python/nca_py.cpp.o
@@ -160,7 +159,7 @@ python/nca_py.o: python/nca_py.cpp.o
 
 # target to build an object file
 python/nca_py.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca_py.dir/build.make CMakeFiles/nca_py.dir/python/nca_py.cpp.o
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca_py.dir/build.make nca/CMakeFiles/nca_py.dir/python/nca_py.cpp.o
 .PHONY : python/nca_py.cpp.o
 
 python/nca_py.i: python/nca_py.cpp.i
@@ -168,7 +167,7 @@ python/nca_py.i: python/nca_py.cpp.i
 
 # target to preprocess a source file
 python/nca_py.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca_py.dir/build.make CMakeFiles/nca_py.dir/python/nca_py.cpp.i
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca_py.dir/build.make nca/CMakeFiles/nca_py.dir/python/nca_py.cpp.i
 .PHONY : python/nca_py.cpp.i
 
 python/nca_py.s: python/nca_py.cpp.s
@@ -176,7 +175,7 @@ python/nca_py.s: python/nca_py.cpp.s
 
 # target to generate assembly for a file
 python/nca_py.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca_py.dir/build.make CMakeFiles/nca_py.dir/python/nca_py.cpp.s
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca_py.dir/build.make nca/CMakeFiles/nca_py.dir/python/nca_py.cpp.s
 .PHONY : python/nca_py.cpp.s
 
 src/nca.o: src/nca.cpp.o
@@ -184,7 +183,7 @@ src/nca.o: src/nca.cpp.o
 
 # target to build an object file
 src/nca.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca.dir/build.make CMakeFiles/nca.dir/src/nca.cpp.o
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca.dir/build.make nca/CMakeFiles/nca.dir/src/nca.cpp.o
 .PHONY : src/nca.cpp.o
 
 src/nca.i: src/nca.cpp.i
@@ -192,7 +191,7 @@ src/nca.i: src/nca.cpp.i
 
 # target to preprocess a source file
 src/nca.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca.dir/build.make CMakeFiles/nca.dir/src/nca.cpp.i
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca.dir/build.make nca/CMakeFiles/nca.dir/src/nca.cpp.i
 .PHONY : src/nca.cpp.i
 
 src/nca.s: src/nca.cpp.s
@@ -200,32 +199,8 @@ src/nca.s: src/nca.cpp.s
 
 # target to generate assembly for a file
 src/nca.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nca.dir/build.make CMakeFiles/nca.dir/src/nca.cpp.s
+	cd /app/build && $(MAKE) $(MAKESILENT) -f nca/CMakeFiles/nca.dir/build.make nca/CMakeFiles/nca.dir/src/nca.cpp.s
 .PHONY : src/nca.cpp.s
-
-tests/test_nca.o: tests/test_nca.cpp.o
-.PHONY : tests/test_nca.o
-
-# target to build an object file
-tests/test_nca.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nca.dir/build.make CMakeFiles/test_nca.dir/tests/test_nca.cpp.o
-.PHONY : tests/test_nca.cpp.o
-
-tests/test_nca.i: tests/test_nca.cpp.i
-.PHONY : tests/test_nca.i
-
-# target to preprocess a source file
-tests/test_nca.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nca.dir/build.make CMakeFiles/test_nca.dir/tests/test_nca.cpp.i
-.PHONY : tests/test_nca.cpp.i
-
-tests/test_nca.s: tests/test_nca.cpp.s
-.PHONY : tests/test_nca.s
-
-# target to generate assembly for a file
-tests/test_nca.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nca.dir/build.make CMakeFiles/test_nca.dir/tests/test_nca.cpp.s
-.PHONY : tests/test_nca.cpp.s
 
 # Help Target
 help:
@@ -235,18 +210,15 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... nca"
 	@echo "... nca_py"
-	@echo "... test_nca"
 	@echo "... python/nca_py.o"
 	@echo "... python/nca_py.i"
 	@echo "... python/nca_py.s"
 	@echo "... src/nca.o"
 	@echo "... src/nca.i"
 	@echo "... src/nca.s"
-	@echo "... tests/test_nca.o"
-	@echo "... tests/test_nca.i"
-	@echo "... tests/test_nca.s"
 .PHONY : help
 
 
@@ -258,5 +230,5 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /app/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system

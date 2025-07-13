@@ -1,1 +1,1 @@
-/usr/bin/c++ -fPIC -flto -shared  -o nca_py.cpython-312-x86_64-linux-gnu.so CMakeFiles/nca_py.dir/python/nca_py.cpp.o  libnca.a
+/usr/bin/c++ -fPIC  -std=c++17 -O3 -mavx2 -flto -shared  -o nca_py.cpython-312-x86_64-linux-gnu.so CMakeFiles/nca_py.dir/python/nca_py.cpp.o  libnca.a

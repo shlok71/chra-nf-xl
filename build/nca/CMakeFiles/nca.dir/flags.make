@@ -4,6 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES =
 
-CXX_INCLUDES = -I/app/nca/include
+CXX_INCLUDES = -I/app/nca/include -I/app/nca/../third_party/MiniDNN-master/include
 
-CXX_FLAGS =
+CXX_FLAGS =  -std=c++17 -O3 -mavx2 -std=gnu++17
+
