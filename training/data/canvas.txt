@@ -1,0 +1,2 @@
+draw red circle at 50,50
+draw blue square at 100,100

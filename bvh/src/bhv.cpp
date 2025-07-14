@@ -31,10 +31,32 @@ BHV BHV::encode(const std::string& input) {
     return result;
 }
 
+#include <map>
+
+static std::map<size_t, std::string> bhv_lookup_table;
+
+BHV BHV::encode(const std::string& input) {
+    BHV result;
+    std::hash<std::string> hasher;
+    size_t h = hasher(input);
+    bhv_lookup_table[h] = input;
+    for (int i = 0; i < BHV_WORDS; ++i) {
+        result.data[i] = (h << (i % 5)) | (h >> (64 - (i % 5)));
+    }
+    return result;
+}
+
 std::string BHV::decode(const BHV& bhv) {
-    // This is a placeholder for the decode function.
+    // This is a simple lookup table for decoding.
     // A real implementation would require a more sophisticated
     // decoding scheme.
+    size_t h = 0;
+    for (int i = 0; i < BHV_WORDS; ++i) {
+        h ^= bhv.data[i];
+    }
+    if (bhv_lookup_table.count(h)) {
+        return bhv_lookup_table[h];
+    }
     return "decoded_string";
 }
 

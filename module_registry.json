@@ -1,0 +1,24 @@
+{
+    "modules": [
+        {
+            "name": "text",
+            "task_type": "TEXT",
+            "library": "libreasoning.so"
+        },
+        {
+            "name": "ocr",
+            "task_type": "OCR",
+            "library": "libnca.so"
+        },
+        {
+            "name": "canvas",
+            "task_type": "CANVAS",
+            "library": "libnca_canvas.so"
+        },
+        {
+            "name": "retrieval",
+            "task_type": "RETRIEVAL",
+            "library": "libassociative_memory.so"
+        }
+    ]
+}

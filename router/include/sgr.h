@@ -13,13 +13,17 @@ enum class TaskType {
     RETRIEVAL
 };
 
+#include <json/json.h>
+#include "paging_system.h"
+
 class SGR {
 public:
-    SGR();
+    SGR(const std::string& registry_path);
     TaskType route(const BHV& input);
-    void register_module(TaskType task_type, std::function<void()> load_function);
 
 private:
     std::map<TaskType, BHV> task_vectors;
-    std::map<TaskType, std::function<void()>> module_loaders;
+    Json::Value module_registry;
+    PagingSystem paging_system;
+    void load_module(TaskType task_type);
 };

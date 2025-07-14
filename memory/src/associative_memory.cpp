@@ -24,7 +24,10 @@ BHV AssociativeMemory::query(const BHV& key) {
 void AssociativeMemory::update(const BHV& key, const BHV& value) {
     // Hebbian-like update rule
     if (memory.count(key)) {
-        memory[key] = BHV::bundle({memory[key], value});
+        BHV& existing_value = memory.at(key);
+        for (int i = 0; i < BHV_WORDS; ++i) {
+            existing_value.data[i] = (existing_value.data[i] & ~value.data[i]) | (value.data[i] & key.data[i]);
+        }
     } else {
         memory[key] = value;
     }
