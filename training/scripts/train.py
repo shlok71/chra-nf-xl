@@ -1,28 +1,23 @@
 import torch
 import torch.optim as optim
-from model_definition import StudentModel
+from transformers import GPT2LMHeadModel, GPT2Config
 from data_preparation import prepare_data
 
-from transformers import GPTJForCausalLM
-
 def main():
+    config = GPT2Config.from_pretrained("distilgpt2")
+    model = GPT2LMHeadModel(config)
+
+    optimizer = optim.AdamW(model.parameters(), lr=0.001)
+
     dataloader = prepare_data()
+    dataloader.batch_size = 1
 
-    student_model = StudentModel()
-    teacher_model = GPTJForCausalLM.from_pretrained("EleutherAI/gpt-j-6B")
-
-    optimizer = optim.Adam(student_model.parameters(), lr=0.001)
-
-    # This is a placeholder for the training loop.
-    # A real implementation would use distillation and LoRA.
-    for epoch in range(10):
+    for epoch in range(1):
         print(f"Epoch {epoch+1}")
         for batch in dataloader:
             optimizer.zero_grad()
-            student_output = student_model(batch[0])
-            with torch.no_grad():
-                teacher_output = teacher_model(batch[0]).logits
-            loss = nn.functional.mse_loss(student_output, teacher_output)
+            outputs = model(batch[0], labels=batch[0])
+            loss = outputs.loss
             loss.backward()
             optimizer.step()
         print(f"Loss: {loss.item()}")
