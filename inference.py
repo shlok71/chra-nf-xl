@@ -22,14 +22,49 @@ def load_module(instruction_type):
     """Loads the relevant module based on the instruction type."""
     if instruction_type == "ocr":
         print("Loading OCR module...")
+        config = GPT2Config.from_pretrained("distilgpt2")
+        model = GPT2LMHeadModel(config)
+        try:
+            model.load_state_dict(torch.load("neuroforge_ocr.pt"))
+        except FileNotFoundError:
+            print("No trained OCR model found. Using the base model.")
+        return model
     elif instruction_type == "reasoning":
         print("Loading reasoning module...")
+        config = GPT2Config.from_pretrained("distilgpt2")
+        model = GPT2LMHeadModel(config)
+        try:
+            model.load_state_dict(torch.load("neuroforge_reasoning.pt"))
+        except FileNotFoundError:
+            print("No trained reasoning model found. Using the base model.")
+        return model
     elif instruction_type == "canvas":
         print("Loading canvas module...")
+        config = GPT2Config.from_pretrained("distilgpt2")
+        model = GPT2LMHeadModel(config)
+        try:
+            model.load_state_dict(torch.load("neuroforge_canvas.pt"))
+        except FileNotFoundError:
+            print("No trained canvas model found. Using the base model.")
+        return model
     elif instruction_type == "code":
         print("Loading code module...")
+        config = GPT2Config.from_pretrained("distilgpt2")
+        model = GPT2LMHeadModel(config)
+        try:
+            model.load_state_dict(torch.load("neuroforge_code.pt"))
+        except FileNotFoundError:
+            print("No trained code model found. Using the base model.")
+        return model
     else:
         print("Loading text module...")
+        config = GPT2Config.from_pretrained("distilgpt2")
+        model = GPT2LMHeadModel(config)
+        try:
+            model.load_state_dict(torch.load("neuroforge_text.pt"))
+        except FileNotFoundError:
+            print("No trained text model found. Using the base model.")
+        return model
 
 def execute_quantized(model, tokenizer, prompt):
     """Executes the model with quantized weights."""
@@ -66,14 +101,9 @@ def main():
     print("Inference engine for NeuroForge.")
     instruction_type = detect_instruction_type(args.prompt)
     print(f"Instruction type: {instruction_type}")
-    load_module(instruction_type)
+    model = load_module(instruction_type)
 
-    config = GPT2Config.from_pretrained("distilgpt2")
-    model = GPT2LMHeadModel(config)
     tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'distilgpt2')
-
-    # Load the trained model
-    model.load_state_dict(torch.load("neuroforge_fused.pt"))
 
     execute_quantized(model, tokenizer, args.prompt)
 

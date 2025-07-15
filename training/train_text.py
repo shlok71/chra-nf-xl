@@ -1,12 +1,24 @@
 import torch
+import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
-from model_definition import TinyModel
+
+class TinyModel(nn.Module):
+    def __init__(self, vocab_size, embedding_dim, hidden_dim):
+        super(TinyModel, self).__init__()
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+        self.linear = nn.Linear(embedding_dim, hidden_dim)
+        self.output = nn.Linear(hidden_dim, vocab_size)
+
+    def forward(self, x):
+        x = self.embedding(x)
+        x = torch.relu(self.linear(x))
+        x = self.output(x)
+        return x
 
 def prepare_data():
     print("Preparing data...")
-    with open("training/data/tiny_dataset.txt", "r") as f:
-        text = f.read()
+    text = "This is a tiny dataset for text generation."
 
     # Create a vocabulary
     vocab = sorted(list(set(text)))
@@ -38,7 +50,7 @@ def main():
     print("Training complete.")
 
     # Save the model
-    torch.save(model.state_dict(), "neuroforge_fused.pt")
+    torch.save(model.state_dict(), "neuroforge_text.pt")
 
 if __name__ == "__main__":
     main()
