@@ -74,7 +74,7 @@ def execute_quantized(model, tokenizer, prompt):
     )
     input_ids = tokenizer.encode(prompt, return_tensors="pt")
     outputs = quantized_model.generate(input_ids, max_length=50)
-    print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 def avx2_bitwise_and(a, b):
     """Performs a bitwise AND operation using AVX2-accelerated numpy."""
@@ -105,7 +105,8 @@ def main():
 
     tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'distilgpt2')
 
-    execute_quantized(model, tokenizer, args.prompt)
+    output = execute_quantized(model, tokenizer, args.prompt)
+    print(f"Output: {output}")
 
     a = np.array([1, 2, 3], dtype=np.int8)
     b = np.array([3, 2, 1], dtype=np.int8)
