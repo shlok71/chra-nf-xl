@@ -1,0 +1,2 @@
+This is a simulated trained model file.
+It represents a very lightweight training outcome.
