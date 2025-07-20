@@ -1,3 +1,6 @@
 # Ignore build artifacts
 build/
 *.onnx
+data/
+neuroforge_vision.pt
+huggingface_cache/
