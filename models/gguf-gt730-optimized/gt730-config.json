@@ -1,0 +1,142 @@
+{
+  "model": {
+    "name": "chra-nf-xl-technical",
+    "type": "technical-training-optimized",
+    "targetDevice": "NVIDIA GT 730",
+    "optimizationLevel": "ultra-low-end",
+    "training": {
+      "domains": [
+        "ai-ml",
+        "coding",
+        "emerging-tech"
+      ],
+      "totalTokens": "211B",
+      "datasets": 12,
+      "accuracy": "87-99%"
+    }
+  },
+  "hardware": {
+    "gpu": "NVIDIA GT 730",
+    "cuda_cores": 384,
+    "memory_bus": "64-bit",
+    "memory_type": "DDR3",
+    "memory_bandwidth": "14.4 GB/s",
+    "variants": [
+      "1GB",
+      "2GB",
+      "4GB"
+    ],
+    "tdp": "49W",
+    "architecture": "Kepler (GK208)"
+  },
+  "quantization": {
+    "recommended": {
+      "1GB": "Q2_K",
+      "2GB": "Q2_K",
+      "4GB": "Q3_K_S"
+    },
+    "available": [
+      {
+        "name": "Q2_K",
+        "bits": 2,
+        "vram_gb": 1.5,
+        "quality_percent": 75,
+        "speed_improvement": 60,
+        "description": "Ultra-low quantization for 1-2GB VRAM",
+        "recommended_for": [
+          "GT 730 1GB",
+          "GT 730 2GB",
+          "Intel HD Graphics"
+        ]
+      },
+      {
+        "name": "Q3_K_S",
+        "bits": 3,
+        "vram_gb": 2.0,
+        "quality_percent": 82,
+        "speed_improvement": 45,
+        "description": "Small 3-bit quantization for 2-4GB VRAM",
+        "recommended_for": [
+          "GT 730 4GB",
+          "GTX 750 Ti",
+          "GTX 950"
+        ]
+      },
+      {
+        "name": "Q3_K_M",
+        "bits": 3,
+        "vram_gb": 2.5,
+        "quality_percent": 85,
+        "speed_improvement": 35,
+        "description": "Medium 3-bit quantization for 4GB+ VRAM",
+        "recommended_for": [
+          "GT 730 4GB",
+          "GTX 1050",
+          "Radeon RX 550"
+        ]
+      },
+      {
+        "name": "Q4_K_S",
+        "bits": 4,
+        "vram_gb": 3.0,
+        "quality_percent": 90,
+        "speed_improvement": 25,
+        "description": "Small 4-bit quantization for 4GB+ VRAM",
+        "recommended_for": [
+          "GTX 950",
+          "GTX 1050",
+          "GT 730 4GB"
+        ]
+      },
+      {
+        "name": "Q4_K_M",
+        "bits": 4,
+        "vram_gb": 3.5,
+        "quality_percent": 92,
+        "speed_improvement": 20,
+        "description": "Medium 4-bit quantization for 6GB+ VRAM",
+        "recommended_for": [
+          "GTX 1050 Ti",
+          "GTX 1650",
+          "Radeon RX 560"
+        ]
+      }
+    ]
+  },
+  "inference": {
+    "threads": 4,
+    "contextSize": 512,
+    "batchSize": 256,
+    "temperature": 0.7,
+    "topP": 0.9,
+    "repeatPenalty": 1.1,
+    "maxTokens": 2048,
+    "gpuLayers": 0,
+    "useMmap": true,
+    "useMlock": false
+  },
+  "performance": {
+    "expected_tokens_per_second": {
+      "Q2_K": {
+        "min": 15,
+        "max": 25
+      },
+      "Q3_K_S": {
+        "min": 12,
+        "max": 18
+      },
+      "Q3_K_M": {
+        "min": 10,
+        "max": 15
+      },
+      "Q4_K_S": {
+        "min": 8,
+        "max": 12
+      },
+      "Q4_K_M": {
+        "min": 6,
+        "max": 10
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "tokenizer_class": "LlamaTokenizer",
+  "vocab_size": 32000,
+  "bos_token": "<s>",
+  "eos_token": "</s>",
+  "pad_token": "</s>",
+  "unk_token": "<unk>",
+  "add_bos_token": true,
+  "add_eos_token": false,
+  "clean_up_tokenization_spaces": false,
+  "model_max_length": 2048
+}
