@@ -1,0 +1,353 @@
+'use client';
+
+import React from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { 
+  CheckCircle2, 
+  TrendingUp, 
+  Award, 
+  Brain,
+  Code,
+  Rocket,
+  Target,
+  Sparkles,
+  Download,
+  Share,
+  Terminal,
+  GitBranch,
+  Zap,
+  Shield,
+  Atom,
+  Database,
+  Cpu
+} from 'lucide-react';
+
+interface TechnicalTrainingSummaryProps {
+  trainingResults: {
+    trainingDomain: string;
+    overallImprovement: string;
+    improvements: any;
+    modelVersion: string;
+    timestamp: string;
+    totalTokens: string;
+    datasetsTrained: number;
+    certificationLevel: string;
+  };
+  onExport?: () => void;
+  onShare?: () => void;
+}
+
+export default function TechnicalTrainingSummary({ trainingResults, onExport, onShare }: TechnicalTrainingSummaryProps) {
+  const getDomainIcon = () => {
+    switch (trainingResults.trainingDomain) {
+      case 'ai-ml': return <Brain className="h-8 w-8 text-blue-600" />;
+      case 'coding': return <Code className="h-8 w-8 text-green-600" />;
+      case 'emerging-tech': return <Rocket className="h-8 w-8 text-orange-600" />;
+      default: return <Cpu className="h-8 w-8 text-purple-600" />;
+    }
+  };
+
+  const getDomainTitle = () => {
+    switch (trainingResults.trainingDomain) {
+      case 'ai-ml': return "AI & Machine Learning Training Complete";
+      case 'coding': return "Advanced Coding Training Complete";
+      case 'emerging-tech': return "Emerging Technologies Training Complete";
+      default: return "Technical Training Complete";
+    }
+  };
+
+  const getDomainDescription = () => {
+    switch (trainingResults.trainingDomain) {
+      case 'ai-ml': return "AI model has achieved expert-level proficiency in machine learning, deep learning, NLP, and computer vision";
+      case 'coding': return "AI model has mastered advanced coding practices across full-stack, system programming, mobile, and DevOps";
+      case 'emerging-tech': return "AI model has acquired cutting-edge knowledge in quantum computing, blockchain, IoT, and cybersecurity";
+      default: return "AI model has successfully completed comprehensive technical training";
+    }
+  };
+
+  const getMetrics = () => {
+    switch (trainingResults.trainingDomain) {
+      case 'ai-ml':
+        return [
+          { label: "Algorithm Mastery", value: trainingResults.improvements.algorithmMastery, icon: Brain, color: "blue" },
+          { label: "Model Optimization", value: trainingResults.improvements.modelOptimization, icon: Zap, color: "purple" },
+          { label: "Research Understanding", value: trainingResults.improvements.researchUnderstanding, icon: Target, color: "green" },
+          { label: "Implementation Skills", value: trainingResults.improvements.implementationSkills, icon: Code, color: "yellow" },
+          { label: "Innovation Capability", value: trainingResults.improvements.innovationCapability, icon: Sparkles, color: "pink" },
+          { label: "Technical Accuracy", value: trainingResults.improvements.technicalAccuracy, icon: Award, color: "indigo" }
+        ];
+      case 'coding':
+        return [
+          { label: "Code Quality", value: trainingResults.improvements.codeQuality, icon: Code, color: "green" },
+          { label: "Architecture Design", value: trainingResults.improvements.architectureDesign, icon: GitBranch, color: "blue" },
+          { label: "Debugging Skills", value: trainingResults.improvements.debuggingSkills, icon: Terminal, color: "purple" },
+          { label: "Performance Optimization", value: trainingResults.improvements.performanceOptimization, icon: Zap, color: "yellow" },
+          { label: "Best Practices", value: trainingResults.improvements.bestPractices, icon: Shield, color: "pink" },
+          { label: "Scalability Design", value: trainingResults.improvements.scalabilityDesign, icon: Database, color: "indigo" }
+        ];
+      case 'emerging-tech':
+        return [
+          { label: "Cutting-Edge Knowledge", value: trainingResults.improvements.cuttingEdgeKnowledge, icon: Rocket, color: "orange" },
+          { label: "Innovation Adoption", value: trainingResults.improvements.innovationAdoption, icon: Sparkles, color: "red" },
+          { label: "Future Readiness", value: trainingResults.improvements.futureReadiness, icon: Target, color: "green" },
+          { label: "Technical Foresight", value: trainingResults.improvements.technicalForesight, icon: Brain, color: "blue" },
+          { label: "Adaptability Score", value: trainingResults.improvements.adaptabilityScore, icon: Zap, color: "purple" },
+          { label: "Research Integration", value: trainingResults.improvements.researchIntegration, icon: Atom, color: "pink" }
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const getBenefits = () => {
+    switch (trainingResults.trainingDomain) {
+      case 'ai-ml':
+        return {
+          immediate: [
+            "Advanced ML algorithm implementation",
+            "State-of-the-art model optimization",
+            "Research paper comprehension and implementation",
+            "Custom neural network architecture design",
+            "Production-ready ML pipeline development"
+          ],
+          longterm: [
+            "Cutting-edge AI research contribution",
+            "Industry-leading ML solutions",
+            "Autonomous model improvement capabilities",
+            "Cross-domain AI integration expertise",
+            "Thought leadership in AI/ML community"
+          ]
+        };
+      case 'coding':
+        return {
+          immediate: [
+            "Production-quality code generation",
+            "Complex system architecture design",
+            "Performance optimization expertise",
+            "Cross-platform development skills",
+            "Industry best practices implementation"
+          ],
+          longterm: [
+            "Technical leadership capabilities",
+            "Scalable system design mastery",
+            "Innovation in software development",
+            "Mentorship and knowledge sharing",
+            "Industry-standard contribution"
+          ]
+        };
+      case 'emerging-tech':
+        return {
+          immediate: [
+            "Quantum algorithm implementation",
+            "Blockchain and smart contract development",
+            "IoT and edge computing solutions",
+            "Advanced cybersecurity protocols",
+            "Future technology integration"
+          ],
+          longterm: [
+            "Technology innovation leadership",
+            "Pioneering new tech applications",
+            "Industry transformation capabilities",
+            "Future-proof technical expertise",
+            "Thought leadership in emerging tech"
+          ]
+        };
+      default:
+        return { immediate: [], longterm: [] };
+    }
+  };
+
+  const metrics = getMetrics();
+  const benefits = getBenefits();
+  const certificationColor = trainingResults.certificationLevel === 'Expert' ? 'bg-purple-100 text-purple-800 border-purple-200' :
+                           trainingResults.certificationLevel === 'Advanced' ? 'bg-blue-100 text-blue-800 border-blue-200' :
+                           'bg-green-100 text-green-800 border-green-200';
+
+  return (
+    <div className="space-y-6">
+      {/* Success Header */}
+      <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
+        <CardHeader className="text-center">
+          <div className="flex justify-center mb-4">
+            {getDomainIcon()}
+          </div>
+          <CardTitle className="text-2xl text-green-800 flex items-center justify-center gap-2">
+            <CheckCircle2 className="h-6 w-6 text-green-600" />
+            {getDomainTitle()}
+          </CardTitle>
+          <CardDescription className="text-green-700 max-w-2xl mx-auto">
+            {getDomainDescription()}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Badge variant="secondary" className="bg-green-100 text-green-800 border-green-200">
+              Model: {trainingResults.modelVersion}
+            </Badge>
+            <Badge variant="secondary" className="bg-blue-100 text-blue-800 border-blue-200">
+              Overall Improvement: {trainingResults.overallImprovement}%
+            </Badge>
+            <Badge variant="secondary" className={certificationColor}>
+              Certification: {trainingResults.certificationLevel}
+            </Badge>
+            <Badge variant="secondary" className="bg-purple-100 text-purple-800 border-purple-200">
+              {trainingResults.totalTokens} Tokens
+            </Badge>
+            <Badge variant="secondary" className="bg-orange-100 text-orange-800 border-orange-200">
+              {trainingResults.datasetsTrained} Datasets
+            </Badge>
+            <Badge variant="secondary" className="bg-gray-100 text-gray-800 border-gray-200">
+              {new Date(trainingResults.timestamp).toLocaleDateString()}
+            </Badge>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Performance Metrics */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-blue-600" />
+            Technical Performance Metrics
+          </CardTitle>
+          <CardDescription>
+            Detailed improvements across all technical competencies
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {metrics.map((metric, index) => {
+              const Icon = metric.icon;
+              const colorClasses = {
+                pink: "from-pink-50 to-pink-100 border-pink-200 text-pink-800",
+                blue: "from-blue-50 to-blue-100 border-blue-200 text-blue-800",
+                green: "from-green-50 to-green-100 border-green-200 text-green-800",
+                yellow: "from-yellow-50 to-yellow-100 border-yellow-200 text-yellow-800",
+                purple: "from-purple-50 to-purple-100 border-purple-200 text-purple-800",
+                indigo: "from-indigo-50 to-indigo-100 border-indigo-200 text-indigo-800",
+                orange: "from-orange-50 to-orange-100 border-orange-200 text-orange-800",
+                red: "from-red-50 to-red-100 border-red-200 text-red-800"
+              };
+              
+              return (
+                <div 
+                  key={index}
+                  className={`p-4 rounded-lg border bg-gradient-to-br ${colorClasses[metric.color]}`}
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <Icon className="h-5 w-5" />
+                    <span className="font-medium text-sm">{metric.label}</span>
+                  </div>
+                  <div className="text-2xl font-bold">
+                    {metric.value}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Training Impact */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Award className="h-5 w-5 text-purple-600" />
+            Technical Training Impact
+          </CardTitle>
+          <CardDescription>
+            How this technical training enhances AI capabilities
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <h4 className="font-semibold text-gray-800">Immediate Technical Benefits</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                {benefits.immediate.map((benefit, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="space-y-3">
+              <h4 className="font-semibold text-gray-800">Long-term Technical Advantages</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                {benefits.longterm.map((benefit, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-blue-600" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Technical Capabilities Overview */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Cpu className="h-5 w-5 text-orange-600" />
+            Enhanced Technical Capabilities
+          </CardTitle>
+          <CardDescription>
+            Comprehensive technical expertise achieved through extensive training
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+              <Brain className="h-12 w-12 mx-auto mb-3 text-blue-600" />
+              <h3 className="font-semibold text-blue-800 mb-2">Knowledge Depth</h3>
+              <p className="text-sm text-blue-700">
+                Expert-level understanding of complex technical concepts and cutting-edge research
+              </p>
+            </div>
+            
+            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
+              <Code className="h-12 w-12 mx-auto mb-3 text-green-600" />
+              <h3 className="font-semibold text-green-800 mb-2">Implementation Skills</h3>
+              <p className="text-sm text-green-700">
+                Production-ready code generation and system architecture design capabilities
+              </p>
+            </div>
+            
+            <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+              <Rocket className="h-12 w-12 mx-auto mb-3 text-purple-600" />
+              <h3 className="font-semibold text-purple-800 mb-2">Innovation Capacity</h3>
+              <p className="text-sm text-purple-700">
+                Ability to create novel solutions and push technological boundaries
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Action Buttons */}
+      <div className="flex justify-center gap-4">
+        <Button 
+          onClick={onExport}
+          variant="outline"
+          className="flex items-center gap-2"
+        >
+          <Download className="h-4 w-4" />
+          Export Technical Report
+        </Button>
+        <Button 
+          onClick={onShare}
+          className="flex items-center gap-2"
+        >
+          <Share className="h-4 w-4" />
+          Share Certification
+        </Button>
+      </div>
+    </div>
+  );
+}
