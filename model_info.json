@@ -1,0 +1,66 @@
+{
+  "name": "CHRA-NF-XL Technical Training System",
+  "version": "1.0.0",
+  "format": "GGUF",
+  "architecture": "LLaMA-compatible",
+  "training_capacity": "211B tokens",
+  "domains": {
+    "ai_ml": {
+      "tokens": "78B",
+      "accuracy": "87-94%",
+      "focus": [
+        "Deep Learning",
+        "NLP",
+        "Computer Vision",
+        "Reinforcement Learning"
+      ]
+    },
+    "coding": {
+      "tokens": "76B",
+      "accuracy": "91-97%",
+      "focus": [
+        "Full-stack Development",
+        "System Programming",
+        "Mobile Apps",
+        "DevOps"
+      ]
+    },
+    "emerging_tech": {
+      "tokens": "57B",
+      "accuracy": "89-99%",
+      "focus": [
+        "Quantum Computing",
+        "Blockchain",
+        "Edge Computing",
+        "Cybersecurity"
+      ]
+    }
+  },
+  "technical_specs": {
+    "vocab_size": 43,
+    "embed_dim": 32,
+    "num_layers": 32,
+    "attention_heads": 32,
+    "context_length": 4096,
+    "data_type": "Float16"
+  },
+  "files": {
+    "production": "chra-nf-xl-technical-production.gguf",
+    "demo": "chra-nf-xl-technical.gguf"
+  },
+  "compatibility": [
+    "llama.cpp",
+    "Ollama",
+    "llama-cpp-python",
+    "GGUF-compatible tools"
+  ],
+  "deployment": {
+    "local": true,
+    "cloud": true,
+    "mobile": true,
+    "edge": true
+  },
+  "license": "MIT",
+  "author": "shlok71",
+  "repository": "https://github.com/shlok71/chra-nf-xl"
+}
